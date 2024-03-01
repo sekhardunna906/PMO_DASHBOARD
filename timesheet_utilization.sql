@@ -129,7 +129,7 @@ JOIN
 JOIN
   calendar_data_cte cd ON ldc.log_submitted_year = cd."Year" AND ldc.log_submitted_month_name = cd."Month"
 RIGHT JOIN
-  zoho_sprint_bronze.employee_data ev ON REPLACE(udn.user_name, '"', '') = ev."concat"
+  zoho_sprint_bronze.employee_data ev ON REPLACE(udn.user_name, '"', '') =  ev."Concat"
 where		--  check only for approved users
   udn_approved.user_name IS NOT null
   AND ps.project_group IN ('Kastech US', 'Kastech MENA', 'Kastech APAC')
