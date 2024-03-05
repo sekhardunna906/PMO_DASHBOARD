@@ -112,7 +112,7 @@ LEFT JOIN
 JOIN
   project_status_cte ps ON ldc.project_id = ps.project_key
 RIGHT JOIN
-  zoho_sprint_bronze.employee_data ev ON REPLACE(udn.user_name, '"', '') =  ev."Concat"
+  zoho_sprint_bronze.employee_data ev ON REPLACE(udn.user_name, '"', '') =  ev."concat"
 where		--  check only for approved users
   udn_approved.user_name IS NOT null
   AND ps.project_group IN ('Kastech US', 'Kastech MENA', 'Kastech APAC')
