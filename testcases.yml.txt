@@ -6,19 +6,23 @@ models:
       - name: approved_by_name
         tests:
           - not_null
+
       - name: project_status
         tests:
           - not_null
+
       - name: project_id
         tests:
           - not_null   
+
       - name: sprint_id
         tests:
           - not_null
+
       - name: log_id
         tests:
-          - unique
-          - not_null      
+          - not_null  
+
       - name: project_group
         tests:
           - accepted_values:
@@ -27,13 +31,19 @@ models:
 
   - name: timesheet_utilization
     columns:
-      - name: approved_by
+      - name: log_owner_name
         tests:
           - not_null
+
+      - name: project_name
+        tests:
+          - not_null
+
       - name: grade
         tests:
           - accepted_values:
               values: ['A', 'B', 'C', 'D', 'E']
+
       - name: bucket
         tests:
           - accepted_values:

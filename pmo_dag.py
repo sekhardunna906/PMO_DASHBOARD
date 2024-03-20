@@ -14,7 +14,7 @@ ist_timezone = timezone('Asia/Kolkata')
 
 default_args = {
     'owner': 'Airflow',
-    'start_date': ist_timezone.localize(datetime(2023, 1, 1, 17, 0, 0)),  # Start date and time in IST
+    'start_date': ist_timezone.localize(datetime(2023, 1, 1, 18, 0, 0)),  # Start date and time in IST
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
 }
@@ -22,7 +22,7 @@ default_args = {
 with DAG(
     dag_id="PMO_Dashboard_Resource_Utilization", 
     default_args=default_args,
-    schedule_interval='0 17 * * *',
+    schedule_interval='0 18 * * *',
     catchup=False,
 ) as dag:
 
@@ -31,7 +31,7 @@ with DAG(
     PMO_Resource_Utilization_API_to_Bronze = AirbyteTriggerSyncOperator( 
         task_id='PMO_Resource_Utilization_API_to_Bronze',
         airbyte_conn_id='airbyte_connection',
-        connection_id='8e1ff4fb-f694-4cd3-b44d-b0c40d6c28ea',
+        connection_id='e17ef8e5-7ed4-446b-bda2-9daf228bcc68',
         asynchronous=False,
         timeout=3600,
         wait_seconds=3
@@ -41,7 +41,7 @@ with DAG(
     PMO_Resource_Utilization_Silver_to_Gold = AirbyteTriggerSyncOperator(
         task_id='PMO_Resource_Utilization_Silver_to_Gold',
         airbyte_conn_id='airbyte_connection',
-        connection_id='be35b8b1-cd89-473b-a035-b552dbf32401',
+        connection_id='e7bcf3e7-dcf0-436c-b0bd-239773d83570',
         asynchronous=False,
         timeout=3600,
         wait_seconds=3
@@ -49,9 +49,10 @@ with DAG(
 
 
     AIRFLOW_HOME = os.getenv('AIRFLOW_HOME')
-    dbt_project_path = f'{AIRFLOW_HOME}/plugins/dbt/pmo_dashboard/'
-
+    dbt_project_path = f'{AIRFLOW_HOME}/plugins/dbt/pmo_dashboard/' 
     bash_cmd = f'cd {dbt_project_path} && dbt run'
+
+    print(f'Executing command: {bash_cmd}')
 
 
     PMO_Resource_Utilization_Bronze_to_silver = BashOperator(

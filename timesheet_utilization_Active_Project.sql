@@ -94,7 +94,7 @@ select
   ldc.project_name,
   ldc.log_submitted_month_name as month,
   (SUM(ldc.hours_for_calculation)) AS actual_hours,
-  udn_approved.user_name AS approved_by,
+  -- udn_approved.user_name AS approved_by,
   cd."Total Working Hours" AS available_hours,
   round((SUM(ldc.hours_for_calculation) / cd."Total Working Hours") * 100, 2) AS "utilization %",
     CASE
@@ -138,5 +138,5 @@ where		--  check only for approved users
   ldc.log_submitted_year,
   ldc.project_name,
   ldc.log_submitted_month_name,
-  udn_approved.user_name,
+  -- udn_approved.user_name,
   cd."Total Working Hours"
